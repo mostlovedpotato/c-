@@ -1,0 +1,23 @@
+Using auto can be quite easy and might help us to reduce the code length and also to make it clearer to understand.
+
+No with c++11, you can declare a variable or an object without specifying its specific type by using
+auto.1 For example:
+auto i = 42; // i has type int
+double f();
+auto d = f(); // d has type double
+
+But for the use of auto while declaration we have to declare that variable we can't just initialize and leave it.
+
+auto i; // ERROR: can’t dedulce the type of i
+
+and also additional qualifiers are allowed 
+static auto vat = 0.19;
+
+Using auto is especially useful where the type is a pretty long and/or complicated expression. For
+example:
+vector<string> v;
+...
+auto pos = v.begin(); // pos has type vector<string>::iterator
+auto l = [] (int x) -> bool { // l has the type of a lambda
+..., // taking an int and returning a bool
+};
