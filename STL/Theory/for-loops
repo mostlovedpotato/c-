@@ -1,0 +1,64 @@
+
+for ( decl : coll ) {
+statement
+}
+where decl is the declaration of each element of the passed collection coll and for which the statements
+specified are called. For example, the following calls for each value of the passed initializer
+list the specified statement, which writes it on a line to the standard output cout:
+for ( int i : { 2, 3, 5, 7, 9, 13, 17, 19 } ) {
+std::cout << i << std::endl;
+}
+To multiply each element elem of a vector vec by 3 you can program as follows:
+std::vector<double> vec;
+...
+for ( auto& elem : vec ) {
+elem *= 3;
+}
+
+Once go throught these initializations
+
+{
+for (auto _pos=coll.begin(); _pos != coll.end(); ++_pos ) {
+const auto& elem = *_pos;
+std::cout << elem << std::endl;
+}
+}
+
+In general, a range-based for loop declared as
+
+for ( decl : coll ) {
+statement
+}
+
+is equivalent to the following, if coll provides begin() and end() members:
+
+{
+for (auto _pos=coll.begin(), _end=coll.end(); _pos!=_end; ++_pos ) {
+decl = *_pos;
+statement
+}
+}
+
+or, if that doesn’t match, to the following by using a global begin() and end() taking coll as
+argument:
+
+{
+for (auto _pos=begin(coll), _end=end(coll); _pos!=_end; ++_pos ) {
+decl = *_pos;
+statement
+}
+}
+
+As a result, you can use range-based for loops even for initializer lists because the class template
+std::initializer_list<> provides begin() and end() members.
+In addition, there is a rule that allows you to use ordinary C-style arrays of known size. For
+example:
+
+int array[] = { 1, 2, 3, 4, 5 };
+long sum=0; // process sum of all elements
+for (int x : array) {
+sum += x;
+}
+for (auto elem : { sum, sum*2, sum*4 } ) { // print some multiples of sum
+std::cout << elem <<std::endl;
+}
