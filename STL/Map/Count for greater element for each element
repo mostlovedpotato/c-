@@ -1,0 +1,27 @@
+So to find the count of the greater elements present for each element in the array the best possible way is to use tha map to store the 
+frequency then adding the frequency of greater elements than current element .
+
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+void countOfGreaterElements(int arr[], int n) 
+{ 
+	
+	map<int, int> mp; 
+	for (int i = 0; i < n; i++) { 
+		mp[arr[i]]++; 
+	} 
+
+	int x = 0; 
+	// Store the sum of frequency of elements 
+	// greater than the current eleement 
+	for (auto it = mp.rbegin(); it != mp.rend(); it++) { 
+		int temp = it->second; 
+		mp[it->first] = x; 
+		x += temp; 
+	} 
+
+	for (int i = 0; i < n; i++) 
+		cout << mp[arr[i]] << " "; 
+} 
