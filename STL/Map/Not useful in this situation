@@ -1,0 +1,56 @@
+Most of the times maps prove useful to us for fast problem solving but sometimes they might slow us down as in the case of longest prefix 
+problem on leetcode if we used the map there see the difference of solution efficiency
+
+So , here in this problem the best solution possible would be to first sort the whole given list and then compare the first and last word 
+because they will have the most difference possible so, just seeing what they have common for prefix we got the solution.
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& str) {
+        int n = str.size();
+        if(n==0) return "";
+        
+        string ans  = "";
+        sort(begin(str), end(str));
+        string a = str[0];
+        string b = str[n-1];
+        
+        for(int i=0; i<a.size(); i++){
+            if(a[i]==b[i]){
+                ans = ans + a[i];
+            }
+            else{
+                break;
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+
+But if you want to see using maps to do the same which would be our worst possible choice because we will then be looking at count of 
+each substring possible from each word in the list that will take huge amount of time and space .
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& str) {
+        map <string, int> m;
+        
+        for(int i=0;i<str.size();i++) {                  // first loop to iterate through the element strings
+            for(int j=1;j<=str[i].length();j++) {        // second loop to iterate through each substring
+                m[str[i].substr(0, j)]++;                // storing string in map with their count
+            }
+        }
+        
+        int len = 0;                          
+        string ans = "";
+        for(auto it : m) {
+            if(it.first.length() > len && it.second == str.size()) {  // conditions to find the largest count of the string and that count should be equal to the count of total no. of strings.
+                ans = it.first;
+                len = it.first.length();
+            } 
+        }
+        return ans;
+    }
+};
