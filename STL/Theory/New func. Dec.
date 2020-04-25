@@ -1,0 +1,10 @@
+Sometimes, the return type of a function depends on an expression processed with the arguments.
+However, something like
+template <typename T1, typename T2>
+decltype(x+y) add(T1 x, T2 y);
+was not possible before C++11, because the return expression uses objects not introduced or in scope
+yet.
+But with C++11, you can alternatively declare the return type of a function behind the parameter
+list:
+template <typename T1, typename T2>
+auto add(T1 x, T2 y) -> decltype(x+y);
