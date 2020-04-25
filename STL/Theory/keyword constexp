@@ -1,0 +1,5 @@
+constexpr int square (int x)
+{
+return x * x;
+}
+float a[square(9)]; // OK since C++11: a has 81 elements
