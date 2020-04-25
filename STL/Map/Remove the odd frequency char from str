@@ -1,0 +1,27 @@
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// Function to remove the characters which 
+// have odd frequencies in the string 
+string removeOddFrequencyCharacters(string s) 
+{ 
+
+	unordered_map<char, int> m; 
+	for (int i = 0; i < s.length(); i++) { 
+		m[s[i]]++; 
+	} 
+	string new_string = ""; 
+
+	// Remove the characters which 
+	// have odd frequencies 
+	for (int i = 0; i < s.length(); i++) { 
+		if (m[s[i]] & 1) 
+			continue; 
+		new_string += s[i]; 
+	} 
+
+	return new_string; 
+} 
+
+
