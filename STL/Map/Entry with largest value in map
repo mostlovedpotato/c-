@@ -1,0 +1,77 @@
+// C++ program to find the Entry 
+// with largest Value in a Map 
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// Function to print the Map 
+void printMap(map<int, int> sampleMap) 
+{ 
+	map<int, int>::iterator itr; 
+	for (itr = sampleMap.begin(); 
+		itr != sampleMap.end(); 
+		++itr) { 
+		cout << itr->first 
+			<< " = " << itr->second << ", "; 
+	} 
+	cout << endl; 
+} 
+
+// Function tp find the Entry 
+// with largest Value in a Map 
+pair<int, int> findEntryWithLargestValue( 
+	map<int, int> sampleMap) 
+{ 
+
+	// Reference variable to help find 
+	// the entry with the highest value 
+	pair<int, int> entryWithMaxValue 
+		= make_pair(0, 0); 
+
+	// Iterate in the map to find the required entry 
+	map<int, int>::iterator currentEntry; 
+	for (currentEntry = sampleMap.begin(); 
+		currentEntry != sampleMap.end(); 
+		++currentEntry) { 
+
+		// If this entry's value is more 
+		// than the max value 
+		// Set this entry as the max 
+		if (currentEntry->second 
+			> entryWithMaxValue.second) { 
+
+			entryWithMaxValue 
+				= make_pair( 
+					currentEntry->first, 
+					currentEntry->second); 
+		} 
+	} 
+
+	return entryWithMaxValue; 
+} 
+
+// Driver code 
+int main() 
+{ 
+
+	// Map 
+	map<int, int> sampleMap; 
+	sampleMap.insert(pair<int, int>(1, 40)); 
+	sampleMap.insert(pair<int, int>(2, 30)); 
+	sampleMap.insert(pair<int, int>(3, 60)); 
+
+	// Printing map 
+	cout << "Map: "; 
+	printMap(sampleMap); 
+
+	// Get the entry with largest value 
+	pair<int, int> entryWithMaxValue 
+		= findEntryWithLargestValue(sampleMap); 
+
+	// Print the entry 
+	cout << "Entry with highest value: "
+		<< entryWithMaxValue.first << " = "
+		<< entryWithMaxValue.second << endl; 
+
+	return 0; 
+} 
