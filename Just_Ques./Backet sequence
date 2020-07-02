@@ -1,0 +1,42 @@
+https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/bracket-sequence-1-40eab940/description/?layout=old
+
+question link above .
+Code below is self explanatory for the answer.
+
+
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main()
+{
+	string s;
+	cin>>s;
+	int n=s.length();
+	int ans=0,c=0;
+	for(int i=0;i<n;i++)
+	{
+		if(s[i]=='(')
+		{
+			int j=i;
+			c=0;
+			int len=n;
+			while(len--)
+			{
+				if(s[j]=='(')
+					c++;
+				else
+					c--;
+				if(c<0)
+					break;
+				if(j==(n-1))
+					j=0;
+				else
+					j++;
+			}
+			if(c==0)
+				ans++;
+		}
+	}
+	cout<<ans;
+	return 0;
+}
