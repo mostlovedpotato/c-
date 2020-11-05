@@ -1,0 +1,51 @@
+As here in this type we just use the bits increment or not to increment every time looping.
+we use bit increment as a way of traversal
+
+if we want to get to 5th pos  that is 101 we will increment msb and then won't increment 2nd pos
+will increment the lsb 
+The following code explains it better.
+
+#include <iostream>
+#include <stdio.h>
+#include<vector>
+#include<cmath>
+
+using namespace std;
+
+
+int metabSearch(vector<int> a,int x) {
+    int n = (int)a.size();
+    int l = log2(n - 1) + 1;
+
+    int pos = 0;
+
+    for(int i = l; i >= 0; i--) {
+        if (a[pos] == x) {
+            return pos;
+        }
+        int new_p = pos | (1 << i);
+
+        if ((new_p < n) && (a[new_p] <= x)) {
+            pos = new_p;
+        }
+    }
+    if (a[pos] == x) {
+        return pos;
+    }
+    else {
+        return -1;
+    }
+}
+
+int main() {
+    int n,x;
+    cin >> n >> x;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int result;
+    result = metabSearch(a, x);
+    std::cout << result;
+    return 0;
+}
