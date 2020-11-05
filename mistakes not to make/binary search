@@ -1,0 +1,20 @@
+In binary search many people use 
+
+mid = (left + right)/2 but it is wrong for greater numbers. > 2^31-1
+
+possible way to resolve this problems are 
+
+first ::::::
+
+writing 
+
+mid = left + (right-1)/2
+
+
+or 
+
+better 
+
+  mid = ((unsigned int)low + (unsigned int)high)) >> 1 
+  
+  
