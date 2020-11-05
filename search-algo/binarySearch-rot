@@ -1,0 +1,52 @@
+Given a sorted array of distinct elements, and the array is rotated at an unknown position. Find minimum element in the array.
+So to solve the above question we just apply binary search and keep track of the least element 
+or precisely saying the left element 
+
+
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+
+
+int binarySearch(int a[], int l, int r)
+{
+    int mid;
+    if (a[l] <= a[r]) {
+        return l;
+    }
+
+    while (l <= r)
+    {
+        if (l == r) {
+            return l;
+        }
+
+        mid = l + (r - l) / 2;
+        if (a[mid] >= a[r]) {   // this thing implies that least element is in second half of array
+            l = mid + 1;
+        }
+        else {
+            r = mid;          //else it is present in the first half of the array.
+        }
+
+    }
+
+    return -1;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int a[100];
+    for (int i = 0; i < 100; i++) {
+        a[i] == 1000;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int result;
+    result = binarySearch(a, 0, n-1);
+    std::cout << a[result];
+    return 0;
+}
