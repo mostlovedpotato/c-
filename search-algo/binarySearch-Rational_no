@@ -1,0 +1,48 @@
+Here in this problem we have to find the given rational numbers which are in fractions but we are
+not allowed to convert it into decimal we have to find the given rational number 
+
+so, here we will use binary search algo ..
+
+
+#include <iostream>
+#include <stdio.h>
+#include<vector>
+#include<cmath>
+
+using namespace std;
+
+struct Rational {
+    int p;
+    int q;
+};
+
+int comp(struct Rational a, struct Rational b) {    // to compare which number is greater of two
+    if (a.p * b.q == a.q * b.p) {
+        return 0;
+    }if (a.p * b.q > a.q * b.p) {
+        return 1;
+    }
+    return -1;
+}
+
+int bSearch(struct Rational a[],int l,int r, struct Rational x) {
+    if (r >= l) {
+        int mid = l + (r - 1) / 2;
+        if (comp(a[mid],x) == 0) {  // if mid at that time is the element to be searched
+            return mid;
+        }
+        if (comp(a[mid], x) > 0) {   // this means element is present in the first half.
+            return bSearch(a, l, mid - 1, x);
+        }
+        return bSearch(a, mid + 1, r, x);
+    }
+    return -1;
+}
+
+int main() {
+    struct Rational a[] = { {1,3},{2,3},{4 / 5} };
+    struct Rational x = { 4,5 };
+    int n = sizeof(a) / sizeof(a[0]);
+    cout << "element found at " << bSearch(a, 0, n, x);
+    return 0;
+}
