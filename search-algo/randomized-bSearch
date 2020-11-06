@@ -1,0 +1,45 @@
+When doing binary search we genrally choose mid element to compare and search for the elements 
+but here in this approach we choose random int from the array to do the same..
+
+
+#include<iostream>
+#include<ctime>
+
+using namespace std;
+
+int random(int x,int y) {
+	srand(time(NULL));
+	return (x + rand() % (y - x + 1));
+}
+
+int randBSearch(int a[], int l, int r, int x) {
+	while (l <= r) {
+		int m = random(l, r);  // get the random element using random function above
+		if (a[m] == x) {
+			return m;
+		}
+		if (a[m] <= x) {  // as we do in binary search we compare here with the random number we obtained
+			return randBSearch(a, m + 1, r, x);
+		}
+		else {
+			return randBSearch(a, l , m, x);
+		}
+	}
+	return -1;
+}
+
+int main() {
+	int n,x;
+	cin >> n>>x;
+	int a[100];
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	int result = randBSearch(a, 0, n, x);
+	if (result == -1) {
+		cout << "Element not present";
+	}
+	else {
+		cout << result;
+	}
+}
