@@ -1,0 +1,55 @@
+Question took up from geeks for geeks .
+
+
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int minT(int meet[][2], int n, vector<int> entry, int m, vector<int>& exit, int p) {
+	int ans = INT_MAX;
+
+	sort(entry.begin(), entry.end());
+	sort(exit.begin(), exit.end());
+	for (int i = 0; i < n; i++) {
+		int u = meet[i][0];
+		int v = meet[i][1];
+        auto it1
+            = upper_bound(entry.begin(),
+                entry.end(), u);
+        auto it2
+            = lower_bound(exit.begin(),
+                exit.end(), v);
+        int start = it1
+            - entry.begin() - 1;
+		int end = it2 - exit.begin();
+		
+		if (start >= 0 && start < m && end >= 0 && end < p) {
+			ans = min(ans, exit[end] - entry[start]);
+		}
+	}
+	return ans >= INT_MAX ? -1 : ans;
+}
+
+int main() {
+
+    int meeting[][2]
+        = { { 15, 19 }, { 5, 10 }, { 7, 25 } };
+
+    vector<int> entry = { 4, 13, 25, 2 };
+
+    vector<int> exit = { 10, 25 };
+    int n = (sizeof(meeting))
+        / sizeof(meeting[0]);
+    int m = entry.size();
+    int p = exit.size();
+    cout << minT(meeting, n, entry,
+        m, exit, p)
+        << endl;
+    return 0;
+}
+
+// start -->> [1,3,4,5]
+//end -->> [3,5,6,7] we check least of first and max of second array
+// we check [1,3] then search lower bound of the left and upper bound for right
