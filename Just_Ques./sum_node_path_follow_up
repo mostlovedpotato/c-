@@ -1,0 +1,70 @@
+Actually this is same question and solution available on geeks for geeks but hard to find .
+I summed up important questions to take into cons... 
+
+https://www.geeksforgeeks.org/sum-of-nodes-in-the-path-from-root-to-n-th-node-in-given-tree/
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+typedef long long ll;
+
+ll sum_nodes(ll N) {
+	if (N == 1) {
+		return 1;
+	}
+	else if (N == 2 || N == 3) {
+		return N + 1;
+	}
+	vector<ll> a;
+	a.push_back(1);
+	ll k = 1;
+
+	bool flag = true;
+	while (k < N) {
+		if (flag == true) {
+			k *= 2;
+			flag = false;
+		}
+		else {
+			k *= 4;
+			flag = true;
+		}
+		if (k > N) {
+			break;
+		}
+		a.push_back(k);
+	}
+	ll len = a.size();
+	vector<ll> prefix(len);
+	prefix[0] = 1;
+	for (ll i = 1; i < len; i++) {
+		prefix[i] = a[i] + prefix[i - 1];
+	}
+	vector<ll>::iterator it = lower_bound(prefix.begin(), prefix.end(), N);
+	ll in = it - prefix.begin();
+	ll final_ans = 0;
+	ll temp = N;
+	while (in > 1) {
+		ll val = temp - prefix[in - 1];
+		if (in % 2 != 0) {
+			temp = prefix[in - 2] + (val + 1) / 2;
+		}
+		else {
+			temp = prefix[in - 2] + (val + 3) / 4;
+		}
+		--in;
+		final_ans += temp;
+	}
+	final_ans += (N + 1);
+	return final_ans;
+}
+
+int main() {
+	ll N;
+	cin >> N;
+	cout << sum_nodes(N) << endl;
+	return 0;
+}
