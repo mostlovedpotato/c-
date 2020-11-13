@@ -1,0 +1,78 @@
+Question is here
+
+https://www.hackerearth.com/practice/algorithms/searching/binary-search/practice-problems/algorithm/c-impresses-everyone/description/
+
+
+First try the question by yourself.
+
+The question tell us to do the reverse thing. we just have to find from the end where our point to be located lie.
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+
+    long long n;
+
+cin>>n;
+
+vector <long long> v(n);
+
+    for(int i=0;i<n;i++){
+
+        cin>>v[i];
+
+    }
+
+    vector <long long> p(n);
+
+    long long sum=0,j=0;
+
+    for(int i=n-1;i>=0;i--){
+
+        sum+=v[i];
+
+        p[j]=sum;
+
+        j++;
+
+    }
+
+    long long q;cin>>q;
+
+    while(q--){
+
+        long long x;
+
+        cin>>x;
+
+long long l=-1,r=n;
+
+        while(r>l+1){
+
+            long long mid=l+(r-l)/2;
+
+            if(p[mid]>=x){
+
+                r=mid;
+
+            }
+
+            else{
+
+                l=mid;
+
+            }
+
+        }
+
+        cout<<(((n-r-1)%2)?"B":"A")<<endl;      
+
+    }
+
+    return 0;
+
+}
