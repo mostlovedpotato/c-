@@ -1,0 +1,47 @@
+Here in this question we are given many things which are having different lengths we are to given the 
+maximum length occurences we have to find the corresponding max length.
+given array of things of size n things in it and integer k
+at least k peices of same length needs to be obtained or cut from
+given item lengths.The task is to find the maximum length of these
+k things that can be obtained. 
+All things can be cut .
+
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+bool isT(int wood[], int N, int len, int k) {
+	int count = 0;
+	for (int i = 0; i < N; i++){
+		count += wood[i] / len;
+}
+	return count >= k;
+}
+
+int maxLen(int wood[], int N, int k) {
+	int l = 1;
+	int r = *max_element(wood, wood + N);
+	while (l <= r) {
+		int mid = l + (r - 1) / 2;
+		if (isT(wood, N, mid, k)) {
+			l = mid + 1;
+		}
+		else {
+			r = mid - 1;
+		}
+	}
+	return r;
+}
+
+int main() {
+	int wood[100];
+	int n, k;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++) {
+		cin >> wood[i];
+	}
+	cout << maxLen(wood, n, k);
+	return 0;
+}
+
