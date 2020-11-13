@@ -1,0 +1,51 @@
+Question is quite interesting as we have to find the number minimum which will satisfy the condition given in question.
+
+we will take as if the array is total from 0 to max that 1e18 and apply binary search till we get the number satisfying the condition.
+Question can be found here
+
+https://www.hackerearth.com/practice/algorithms/searching/binary-search/practice-problems/algorithm/the-furious-five-69521576/description/
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+ll mini(ll a, ll b)
+{
+    if(a<b){
+        return a;
+    }else{
+        return b;
+    }
+}
+ll miN(ll num)    // we check for the number possible divisions by 5
+{
+    ll ret = 0;
+    while(num != 0) {
+        ret += num/5;
+        num /= 5;
+    }
+    return ret;
+}
+int main()
+{
+    int t;
+    scanf("%d", &t);
+    while(t--) {
+        int n;
+        ll low, mid, high;
+        cin>>n;
+        low = 0, high = 1e18;
+        ll ans = high;
+        while(low <= high) {
+            mid = low +(high-low)/2;
+            ll val = miN(mid);
+            if(val >= n) {
+                high = mid-1;
+                ans = mini(ans, mid);
+            } else {
+                low = mid+1;
+            }
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
