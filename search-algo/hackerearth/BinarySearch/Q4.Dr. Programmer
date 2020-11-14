@@ -1,0 +1,81 @@
+Below is the question link.
+
+
+https://www.hackerearth.com/practice/algorithms/searching/binary-search/practice-problems/algorithm/to-do-b9cfd3e3/
+
+
+
+Logic for this question is quite simple just you might get confused at implementation.
+We just have to find the corordinates satisying the above condition. So we just use vectors for simplicity by using upper_bound
+and lower_bound for the purpose
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+ 
+const int N = 5e4+5;
+int n, m, t;
+ll z, l1, r1, l2, r2;
+char ch;
+vector<ll> x_cord, y_cord;
+ 
+void inX() {
+	cin >> l1 >> r1;
+	l1 = lower_bound(x_cord.begin(), x_cord.end(), l1) - x_cord.begin();
+	r1 = upper_bound(x_cord.begin(), x_cord.end(), r1) - x_cord.begin() - 1;
+}
+ 
+void inY() {
+	cin >> l2 >> r2;
+	l2 = lower_bound(y_cord.begin(), y_cord.end(), l2) - y_cord.begin();
+	r2 = upper_bound(y_cord.begin(), y_cord.end(), r2) - y_cord.begin() - 1;
+}
+ 
+void solve() {
+	cin >> z >> ch;
+	if (ch == 'A') {
+		inX(), l2 = 0, r2 = m - 1;
+	}
+	else if (ch == 'B') {
+		l1 = 0, r1 = n - 1, inY();
+	}
+	else {
+		inX(), inY();
+	}
+	
+	ll res = 0;
+	int last = r2;
+	while (l1 <= r1 && l2 <= last) {
+		while (last >= l2 && x_cord[l1] + y_cord[last] > z) {
+			last--;
+		}
+		res += 1LL * (last - l2 + 1);
+		l1++;
+	}
+	cout << res << endl;
+}
+ 
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	
+	cin >> n >> m >> t;
+	x_cord.resize(n);
+	y_cord.resize(m);
+	for (int i = 0; i < n; i++) {
+		cin >> x_cord[i];
+	}
+	
+	for (int i = 0; i < m; i++) {
+		cin >> y_cord[i];
+	}
+	
+	sort(x_cord.begin(), x_cord.end());
+	sort(y_cord.begin(), y_cord.end());
+	
+	while (t--) {
+		solve();
+	}
+	
+	return 0;
+}
