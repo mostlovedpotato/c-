@@ -1,0 +1,46 @@
+Here we have to check whether a string can be obtained by the appending the subsequences of the given string
+like two string given to us ababa and aaaaaabbbbbb  we have to check if possible string 2 can be obtained
+by the subsequences of string 1 and what would be minimum number of appenages to obtain that.
+
+
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+void find(string str1, string str2) {
+	vector<int> vec1[26];                       //to check all the letters 26 of them 
+	for (int i = 0; i < str1.size(); i++) {           //getting each letter into vector we are pushing position of each letter into vector
+		vec1[str1[i] - 'a'].push_back(i);
+	}
+	int result = 1, position = 0;
+
+	for (int i = 0; i < str2.size(); i++) {
+		char c = str2[i];
+		if (vec1.empty()) {                 
+			result = -1;
+			break;
+		}
+
+		vector<int>& vec2 = vec1 ;
+		int p = lower_bound(vec2.begin(), vec2.end(), position) - vec2.begin();  
+     // position of the letter 
+
+		if (p == vec2.size()) {
+			result++;
+			i--;
+			position = 0;
+			continue;
+		}
+		else {
+			position = vec2[p] + 1;
+		}
+	}
+	cout << result << endl;
+}
+
+int main() {
+	//take strings and run function on them once....... as per your need
+}
