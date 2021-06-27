@@ -1,8 +1,9 @@
-#DFS
 
-###DFS Traversals using Matrix and Adj List
+# DFS
 
-####C++ and C 
+### DFS Traversals using Matrix and Adj List
+
+#### C++ and C 
 
 **We Call DFSUtil from DFS and in DFS we check for connected Components**
 
